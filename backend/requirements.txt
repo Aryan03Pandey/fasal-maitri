@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+transformers
+torch
+redis
+httpx
+python-dotenv
+pydantic
+faiss-cpu
+twilio
+whisper      # or faster-whisper if preferred
