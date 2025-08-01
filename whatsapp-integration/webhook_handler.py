@@ -25,6 +25,9 @@ async def whatsapp_webhook(
     elif MediaContentType0 and "audio" in MediaContentType0:
         print(f"Received voice message at: {MediaUrl0}")
         response.message("Received your voice message! Processing...")
+    elif MediaContentType0 and "image" in MediaContentType0:
+        print(f"Received image message at: {MediaUrl0}")
+        response.message("Received your voice message! Processing...")
     else:
         response.message("Unsupported message type.")
 
