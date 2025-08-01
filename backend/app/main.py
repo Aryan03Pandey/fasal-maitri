@@ -3,6 +3,7 @@
 from fastapi import FastAPI, Request, Form
 from fastapi.responses import PlainTextResponse
 from twilio.twiml.messaging_response import MessagingResponse
+from audio_utils import download_and_convert_ogg, transcribe_audio
 import os
 from dotenv import load_dotenv
 
@@ -24,12 +25,18 @@ async def whatsapp_webhook(
     if Body:
         print(f"Text message: {Body}")
         response.message(f"You said: {Body}")
+
     elif MediaContentType0 and "audio" in MediaContentType0:
         print(f"Received voice message at: {MediaUrl0}")
-        response.message("Received your voice message! Processing...")
+        wav_path = download_and_convert_ogg(MediaUrl0)
+        transcript = transcribe_audio(wav_path)
+        reply_text = f"You said (voice): {transcript}"
+        response.message(reply_text)
+
     elif MediaContentType0 and "image" in MediaContentType0:
         print(f"Received image message at: {MediaUrl0}")
         response.message("Received your voice message! Processing...")
+
     else:
         response.message("Unsupported message type.")
 
