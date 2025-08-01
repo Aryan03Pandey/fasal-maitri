@@ -11,4 +11,7 @@ twilio
 whisper
 duckduckgo_search
 numpy
-protobuf
+protobufsqlalchemy[asyncio]
+asyncpg
+alembic
+pydantic-settings
