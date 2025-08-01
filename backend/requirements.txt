@@ -9,3 +9,7 @@ pydantic
 faiss-cpu
 twilio
 whisper      # or faster-whisper if preferred
+sqlalchemy[asyncio]
+asyncpg
+alembic
+pydantic-settings
