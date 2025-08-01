@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    container_name: fasal_maitri_backend
+    env_file: .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    volumes:
+      - ./backend:/app  # live code for dev; remove for strict prod
+      - ./data:/app/data
+    # For GPU acceleration (optional, if host has nvidia & you install cuda toolkit):
+    # runtime: nvidia
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - capabilities: [gpu]
+    command: >
+      sh -c "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+
+  redis:
+    image: redis:7
+    container_name: fasal_maitri_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  # Optional: ngrok for exposing localhost in hackathon (you can also run ngrok locally outside Docker)
+  # ngrok:
+  #   image: wernight/ngrok
+  #   ports:
+  #     - "4040:4040"
+  #   command: http backend:8000
+  #   depends_on:
+  #     - backend
+
+volumes:
+  redis_data:
