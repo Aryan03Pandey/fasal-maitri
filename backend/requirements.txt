@@ -8,4 +8,7 @@ python-dotenv
 pydantic
 faiss-cpu
 twilio
-whisper      # or faster-whisper if preferred
+whisper
+duckduckgo_search
+numpy
+protobuf
