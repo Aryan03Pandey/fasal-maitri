@@ -19,21 +19,20 @@ async def whatsapp_webhook(
     MediaUrl0: str = Form(None)
 ):
     print(f"Incoming message from {From}")
-    
     response = MessagingResponse()
-    
-    if Body:
-        print(f"Text message: {Body}")
-        response.message(f"You said: {Body}")
-    elif MediaContentType0 and "audio" in MediaContentType0:
-        print(f"Received voice message at: {MediaUrl0}")
-        response.message("Received your voice message! Processing...")
-    elif MediaContentType0 and "image" in MediaContentType0:
+
+    if MediaContentType0 and "image" in MediaContentType0:
         print(f"Received image message at: {MediaUrl0}")
         # Use the handler to process the image and caption
         form = await request.form()
         gemini_response = handle_incoming_image(form, Body)
         response.message(gemini_response)
+    elif MediaContentType0 and "audio" in MediaContentType0:
+        print(f"Received voice message at: {MediaUrl0}")
+        response.message("Received your voice message! Processing...")
+    elif Body:
+        print(f"Text message: {Body}")
+        response.message(f"You said: {Body}")
     else:
         response.message("Unsupported message type.")
 

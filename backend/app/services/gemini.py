@@ -22,7 +22,21 @@ def process_image_prompt(image_bytes, content_type, caption):
             {
                 "parts": [
                     {
-                        "text": caption
+                        "text": """You are KrishiMitra, a friendly and culturally aware agriculture assistant.
+
+                                The user has shared an image of a crop or plant, possibly showing signs of disease, pest attack, or nutrient deficiency. Your job is to:
+
+                                1. **Analyze the image** to identify the issue (e.g., insect pest, fungal infection, nutrient deficiency, or healthy).
+                                2. **Use the optional caption** (if available) to provide more context.
+                                3. **Give a short diagnosis** (problem and possible cause).
+                                4. **Suggest a solution** in simple **Hinglish**, using analogies farmers understand.
+                                5. **If the issue is based on a myth**, clearly debunk it with a cultural reference.
+
+                                Now, based on the given image and this caption (if any):  
+                                **Caption**: "{caption}"
+
+                                Please return your full diagnosis and solution. Keep it under 250 words, farmer-friendly tone.
+                            """
                     },
                     {
                         "inline_data": {
