@@ -62,11 +62,6 @@ async def whatsapp_webhook(
         transcript = transcribe_audio(wav_path)
         reply_text = f"You said (voice): {transcript}"
         response.message(reply_text)
-
-    elif MediaContentType0 and "image" in MediaContentType0:
-        print(f"Received image message at: {MediaUrl0}")
-        response.message("Received your voice message! Processing...")
-
     else:
         response.message("Unsupported message type.")
 
